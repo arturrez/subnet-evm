@@ -2,7 +2,7 @@
 
 # ============= Setting up base Stage ================
 # Set required AVALANCHE_VERSION parameter in build image script
-ARG AVALANCHE_VERSION
+ARG AVALANCHE_VERSION=v1.7.5
 
 # ============= Compilation Stage ================
 FROM golang:1.17.4-buster AS builder
