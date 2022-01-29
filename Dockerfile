@@ -2,7 +2,7 @@
 
 # ============= Setting up base Stage ================
 # Set required AVALANCHE_VERSION parameter in build image script
-ARG AVALANCHE_VERSION
+ARG AVALANCHE_VERSION=1.7.4
 
 # ============= Compilation Stage ================
 FROM golang:1.17.1-buster AS builder
@@ -17,11 +17,7 @@ RUN go mod download
 # Copy the code into the container
 COPY . .
 
-# Pass in SUBNET_EVM_COMMIT as an arg to allow the build script to set this externally
-ARG SUBNET_EVM_COMMIT
-ARG CURRENT_BRANCH
-
-RUN export SUBNET_EVM_COMMIT=$SUBNET_EVM_COMMIT && export CURRENT_BRANCH=$CURRENT_BRANCH && ./scripts/build.sh /build/evm
+RUN ./scripts/build.sh /build/evm
 
 # ============= Cleanup Stage ================
 FROM avaplatform/avalanchego:$AVALANCHE_VERSION AS builtImage
